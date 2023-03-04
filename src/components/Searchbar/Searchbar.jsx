@@ -1,11 +1,15 @@
 import React from "react";
-
+import PropTypes from 'prop-types';
 
 
 export class Searchbar extends React.Component{
     state = {
         value: ''
     }
+
+    static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+}
 
     handleChange = (evt) => {
         this.setState({value: evt.target.value})
@@ -14,10 +18,11 @@ export class Searchbar extends React.Component{
     handleSubmit =(evt) => {
         evt.preventDefault();
         this.props.onSubmit(this.state.value);
+        this.setState({value: ""})
     }
 
     render() {
-        // console.log(this.props.onSubmit)
+       
         return (
             <header >
                 <form onSubmit={this.handleSubmit}>
