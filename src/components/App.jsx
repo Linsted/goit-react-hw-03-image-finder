@@ -12,10 +12,7 @@ export class  App extends React.Component {
     
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState, this.state)
-    
-  }
+
 
   handleSubmit = (query) => {
     

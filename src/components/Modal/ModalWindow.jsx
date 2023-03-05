@@ -3,6 +3,8 @@ import React from 'react';
 import { Modal } from './Modal.styled';
 import { Backdrop } from './Modal.styled';
 import { ButtonClose } from './Modal.styled';
+import { createPortal } from 'react-dom';
+import { GrClose } from "react-icons/gr";
 
 
 export class ModalWindow extends React.Component {
@@ -40,15 +42,18 @@ export class ModalWindow extends React.Component {
     }
 
     render() {
-            return(
+            return createPortal(
                             <Backdrop onClick={this.handleBackdropClick}>
                                 <Modal>
-                                        <img src={this.props.largeImage} alt="" width="1200" height="900" />
-                                        <ButtonClose onClick={this.props.onClose} type='button'>X</ButtonClose>
+                                        <img src={this.props.largeImage} alt="" width="1100" height="700" />
+                                        <ButtonClose onClick={this.props.onClose} type='button'><GrClose/></ButtonClose>
                                 </Modal>
-                            </Backdrop>
+                            </Backdrop>, document.querySelector("#modal-root")
     )
     }
     
     
 }
+
+
+// GrStatusCritical

@@ -5,7 +5,7 @@ import * as Api from "../../api/api";
 import PropTypes from 'prop-types';
 import { Button } from "components/Button/Button";
 import toast from 'react-hot-toast';
-
+import { List, Container } from "./ImageGallery.styled";
 
 export class ImageGallery extends React.Component {
 
@@ -16,13 +16,13 @@ export class ImageGallery extends React.Component {
     state = {
         images: [],
         loading: false,
-        // page: this.props.page,
         totalHits: 0,
         perPage: this.props.perPage,
     }
 
     static propTypes = {
         query: PropTypes.string.isRequired,
+        page: PropTypes.number.isRequired,
     }
 
     async  componentDidUpdate(prevProps, prevState) {
@@ -30,6 +30,7 @@ export class ImageGallery extends React.Component {
         if (prevProps.query !== this.props.query || prevProps.page !== this.props.page) {
           this.setState({loading: true, })
         try {
+            
             const response = await Api.fetchImages(this.props.query, this.props.page);
             if (!response.ok) { throw new Error(Error) }
             const data = await response.json();
@@ -52,22 +53,17 @@ export class ImageGallery extends React.Component {
     }
     
 
-    // loadMore = () => {
-    //     // console.log(this.props)
-    //     this.setState(prevState => ({ page: prevState.page + 1 }));
-    //     // console.log(this.state.images.length)
-        
-    // }
     
     render() {
-        console.log(this.props)
+        
         return (
             
-            <>
-                <ul><ImageGalleryItem images={this.state.images} /></ul>
-                {(this.state.images.length !== 0 && this.state.page !== this.state.totalHits/this.state.perPage) && <Button onClick={this.props.onLoadMore} />}
+            <Container>
+                <List><ImageGalleryItem images={this.state.images} /></List>
                 <Loader loading={this.state.loading} />
-            </>
+                {(this.state.images.length !== 0 && this.state.page !== this.state.totalHits/this.state.perPage) && <Button onClick={this.props.onLoadMore} />}
+                
+            </Container>
 )
     }
 }

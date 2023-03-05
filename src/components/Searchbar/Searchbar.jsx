@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
-
+import { Header } from "./Searchbar.styled";
+import { GrSearch } from "react-icons/gr";
+import { SearchButton, SearchForm, SearchInput } from "./Searchbar.styled";
 
 export class Searchbar extends React.Component{
     state = {
@@ -24,13 +26,13 @@ export class Searchbar extends React.Component{
     render() {
        
         return (
-            <header >
-                <form onSubmit={this.handleSubmit}>
-                    <button type="submit">
-                    <span>Search</span>
-                    </button>
+            <Header >
+                <SearchForm onSubmit={this.handleSubmit}>
+                    <SearchButton type="submit">
+                    <GrSearch/>
+                    </SearchButton>
 
-                        <input
+                        <SearchInput
                          name="input"
                         type="text"
                          autoComplete="off"
@@ -39,8 +41,8 @@ export class Searchbar extends React.Component{
                         value={this.state.value}
                          onChange={this.handleChange}
                         />
-                </form>
-            </header>
+                </SearchForm>
+            </Header>
         )
     }
 }

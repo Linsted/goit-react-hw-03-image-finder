@@ -4,8 +4,14 @@ import styled from '@emotion/styled'
 
 export const ButtonClose = styled.button`
 position: absolute;
+
 top: 15px;
 right: 15px;
+border: none;
+border-radius: 5px;
+padding: 5px;
+cursor: pointer;
+background-color: white;
 `
 
 export const Backdrop = styled.div`
@@ -18,8 +24,8 @@ export const Backdrop = styled.div`
 `
 
 export const Modal = styled.div`
-    width: 1200px;
-    height: 900px;
+    width: 1100px;
+    height: 700px;
     position: absolute;
     top: 50%;
     left: 50%;

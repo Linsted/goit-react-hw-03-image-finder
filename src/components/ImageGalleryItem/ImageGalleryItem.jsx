@@ -1,6 +1,7 @@
 import { ModalWindow } from 'components/Modal/ModalWindow';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { ModalOpenButton } from './ImageGalleryItem.styled';
 
 export class  ImageGalleryItem extends React.Component {
     
@@ -21,7 +22,6 @@ export class  ImageGalleryItem extends React.Component {
     }
 
     closeModal = (evt) => {
-        // console.log(evt.target)
         this.setState({openModal: false})
     }
 
@@ -29,9 +29,9 @@ export class  ImageGalleryItem extends React.Component {
             return (
         <>
                     {this.props.images.map(image => <li key={image.id}>
-                        <button onClick={() => { this.openModal(image.largeImageURL) }} type='button'>
-                            <img src={image.webformatURL} alt={image.tags} width="200" height="150" />
-                        </button>
+                        <ModalOpenButton onClick={() => { this.openModal(image.largeImageURL) }} type='button'>
+                            <img src={image.webformatURL} alt={image.tags} width="400" height="300" />
+                        </ModalOpenButton>
                         </li>)}
             {this.state.openModal && (<ModalWindow onClose={this.closeModal} largeImage={this.state.largeImage} />)}
         </>
