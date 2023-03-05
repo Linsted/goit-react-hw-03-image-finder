@@ -11,7 +11,7 @@ export const Loader = ({loading}) => {
                 width="50"
                 radius="9"
                 color="green"
-                wrapperStyle={{}}
+                
   
 />
         </>

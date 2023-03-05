@@ -1,6 +1,6 @@
 import React from "react";
 import { Searchbar } from "./Searchbar/Searchbar";
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 
 
@@ -8,24 +8,32 @@ export class  App extends React.Component {
   
   state = {
     query: "",
+    page: 1,
     
   }
 
-
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState, this.state)
+    
+  }
 
   handleSubmit = (query) => {
     
-    this.setState({ query })
+    this.setState({ query, page: 1,  })
     
     
   }
   
+  handlePage = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  }
+
   render() {
     return (
       <div>
         <Toaster toastOptions={{duration: 2000,}} />
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery  query={this.state.query} />
+        <ImageGallery query={this.state.query} page={this.state.page} onLoadMore={this.handlePage} />
     </div>
   );
   }
