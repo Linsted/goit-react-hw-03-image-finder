@@ -18,6 +18,8 @@ export class ImageGallery extends React.Component {
         loading: false,
         totalHits: 0,
         perPage: this.props.perPage,
+        showButton: true,
+        
     }
 
     static propTypes = {
@@ -27,15 +29,19 @@ export class ImageGallery extends React.Component {
 
     async  componentDidUpdate(prevProps, prevState) {
          
-        if (prevProps.query !== this.props.query || prevProps.page !== this.props.page) {
-          this.setState({loading: true, })
+        // if (this.props.query.length === 0) {
+            
+        //     return
+        // }
+        if (prevProps.query !== this.props.query || prevProps.page !== this.props.page || this.props.query.length === 0) {
+          this.setState({loading: true, showButton: true })
         try {
             
             const response = await Api.fetchImages(this.props.query, this.props.page);
             if (!response.ok) { throw new Error(Error) }
             const data = await response.json();
             if (data.hits.length === 0) {
-                this.setState({loading: false})
+                this.setState({loading: false, showButton: false})
                 return toast('Nothing`s find');
             }
            
@@ -61,7 +67,7 @@ export class ImageGallery extends React.Component {
             <Container>
                 <List><ImageGalleryItem images={this.state.images} /></List>
                 <Loader loading={this.state.loading} />
-                {(this.state.images.length !== 0 && this.state.page !== this.state.totalHits/this.state.perPage) && <Button onClick={this.props.onLoadMore} />}
+                {(this.state.showButton && this.state.images.length !== 0 && this.state.page !== this.state.totalHits/this.state.perPage)  && <Button onClick={this.props.onLoadMore} />}
                 
             </Container>
 )
